@@ -55,6 +55,17 @@ init_asg(unsigned int size, struct base_action *action_entry) {
     ASG_size++;
     ba++;
   }
+
+  struct linkNode *currPtr, *itr;
+  currPtr = itr = asg_entry;
+  for (int i = 0; i < size; i++) {
+    for (int j = 0; j < size; j++) {
+      if (currPtr == itr) {
+        continue;
+      }
+      if (isValid(b))
+    }
+  }
   return asg_entry;
 }
 
