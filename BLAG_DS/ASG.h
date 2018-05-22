@@ -17,7 +17,7 @@ class Asg_handler {
     };
 
     struct super_action {
-        list<struct base_action> *sa;
+        list<struct atom_action> *sa;
     };
 
     struct node {
@@ -43,16 +43,19 @@ class Asg_handler {
     };
 
 public:
-    Asg_handler();
+    Asg_handler(const unsigned int ps = 0);
     ~Asg_handler();
     struct linkNode *init_asg(unsigned int size, struct base_action *action_entry);
-    struct base_action *combination(const struct base_action *comb_base_action);
+    struct super_action *combination(const struct base_action *comb_base_action);
     bool isValid(const base_action *ba1, const base_action *ba2);
+    bool isValid(const super_action *sa, const base_action *ba);
+    bool isValid(const super_action *sa1, const super_action *sa2);
 
 private:
     struct linkNode *asg_entry, *asg_tail;
-    unsigned int ASG_size;
+    unsigned int ASG_size, PATH_size;
     struct linkNode *ba2linkNode(const unsigned int new_id, struct base_action *ba);
+
 };
 
 #endif /*!ASG.h */

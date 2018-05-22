@@ -17,9 +17,10 @@ Asg_handler::ba2linkNode(const unsigned int new_id, struct base_action *ba) {
     return link_node;
 }
 
-Asg_handler::Asg_handler() {
+Asg_handler::Asg_handler(const unsigned int ps = 0) {
     asg_entry = asg_tail = NULL;
     ASG_size = 0;
+    PATH_size = ps;
 }
 
 struct linkNode *
