@@ -1,35 +1,58 @@
 #ifndef __ASG_H__
 #define __ASG_H__
 
+#include<iostream>
+#include<cstdlib>
+#include<list>
+using namespace std;
 
-#include<stdlib.h>
-#include<float.h>
+class Asg_handler {
+    struct atom_action {
+        unsigned int *pathid;
+        float *prob;
+    };
 
-static unsigned int ASG_size;
+    struct base_action {
+        struct atom_action *at_pos, *at_neg;
+    };
 
-struct base_action {
-  unsigned int *pathid_1, *pathid_2;
-  float *prob_1, *prob_2;
-};
+    struct super_action {
+        list<struct base_action> *sa;
+    };
 
-struct node {
-  const unsigned int id;
-  struct node *next;
-};
+    struct node {
+        unsigned int id;
+        struct node *next;
+        node() {id = 0; next = NULL;}
+        node(const unsigned int i, struct node *n) {id = i; next = n;}
+    };
 
-struct linkNode {
-  const unsigned int id;
-  struct node *header_node;
-  struct base_action *node_base_action;
-  struct linkNode *next;
-};
+    struct linkNode {
+        unsigned int id;
+        struct node *header_node;
+        struct base_action *node_base_action;
+        struct linkNode *next, *prev;
 
+        linkNode(){header_node = NULL; node_base_action = NULL; next = NULL; prev = NULL;}
+        linkNode(struct node *hn, struct node *nbc, struct linkNode *n,  struct linkNode *) {
+            header_node = hn;
+            node_base_action = nbc;
+            next = n;
+            prev = p;
+        }
+    };
 
-struct asg_handler {
-  static struct linkNode *asg_entry, *asg_tail;
-  struct linkNode *init_asg(unsigned int size, struct base_action *action_entry);
-  struct base_action *combination(const struct base_action *comb_base_action);
-  bool isValid(const base_action *ba1, const base_action *ba2);
+public:
+    Asg_handler();
+    ~Asg_handler();
+    struct linkNode *init_asg(unsigned int size, struct base_action *action_entry);
+    struct base_action *combination(const struct base_action *comb_base_action);
+    bool isValid(const base_action *ba1, const base_action *ba2);
+
+private:
+    struct linkNode *asg_entry, *asg_tail;
+    unsigned int ASG_size;
+    struct linkNode *ba2linkNode(const unsigned int new_id, struct base_action *ba);
 };
 
 #endif /*!ASG.h */
